@@ -1,16 +1,16 @@
-package me.shadowsense.aktier.userinterface.guis;
+package me.shadowsense.aktier.userinterface.guis.stocklist;
 
 import eu.okaeri.injector.annotation.Inject;
+import eu.okaeri.placeholders.context.Placeholder;
 import eu.okaeri.platform.core.annotation.Component;
-import me.abdiskiosk.guis.config.item.ConfigItem;
 import me.abdiskiosk.guis.item.GUIItem;
 import me.abdiskiosk.guis.item.ItemBuilder;
 import me.abdiskiosk.guis.item.PaneColor;
+import me.abdiskiosk.guis.util.Placeholders;
 import me.shadowsense.aktier.config.StockConfig;
 import me.shadowsense.aktier.invest.Stock;
 import me.shadowsense.aktier.invest.StockManager;
 import me.shadowsense.aktier.userinterface.AktieGUI;
-import me.shadowsense.aktier.userinterface.util.Button;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -25,19 +25,20 @@ public class StockList {
         new GUI(player).open(player);
     }
 
-    public class GUI extends AktieGUI {
+    public class GUI extends AktieGUI<StockListConfig> {
 
 
         public GUI(Player player) {
-            super("§8§l[ §b§lSTOCK §7- §f§lLIST §8§l]", 45, PaneColor.CYAN, PaneColor.WHITE);
+            super(PaneColor.CYAN, PaneColor.WHITE, new StockListConfig());
 
             setStocksList();
+
         }
 
         private void setStocksList() {
             int i = 9;
             for (Stock stock : stockManager.getStocks()) {
-                createStockItem(stock, i);
+                setItem(i, getConfig().getStockItem().getItem(), Placeholders.of("stock.name", stock.getName()));
                 i++;
             }
         }
@@ -58,7 +59,7 @@ public class StockList {
             GUIItem item = new GUIItem(slot, itemBuilder
                     .build());
 
-
+            set(item);
 
 
         }

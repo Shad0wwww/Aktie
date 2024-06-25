@@ -5,6 +5,7 @@ import eu.okaeri.configs.yaml.bukkit.serdes.SerdesBukkit;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.i18n.configs.LocaleConfig;
 import eu.okaeri.injector.Injector;
+import eu.okaeri.placeholders.Placeholders;
 import eu.okaeri.platform.bukkit.OkaeriBukkitPlugin;
 import eu.okaeri.platform.core.annotation.Bean;
 import eu.okaeri.platform.core.annotation.Scan;
@@ -14,6 +15,7 @@ import eu.okaeri.platform.core.plan.Planned;
 import me.shadowsense.aktier.config.Config;
 import me.shadowsense.aktier.database.StoreManager;
 import me.shadowsense.aktier.task.StockUpdater;
+import me.shadowsense.aktier.utils.PlaceholderResolvers;
 
 import java.io.File;
 
@@ -40,6 +42,13 @@ public final class Aktier extends OkaeriBukkitPlugin {
     public void setupTasks(Injector injector, Config config) {
         injector.createInstance(StockUpdater.class)
                 .runTaskTimer(this, 20L, 20L * 60 * config.getUpdateInterval());
+    }
+
+    private PlaceholderResolvers resolvers;
+    @Planned(ExecutionPhase.PRE_SETUP)
+    public void setupPlaceholders(Placeholders placeholders) {
+        this.resolvers = new PlaceholderResolvers();
+        resolvers.registerPlaceholderResolvers(placeholders);
     }
 
 
