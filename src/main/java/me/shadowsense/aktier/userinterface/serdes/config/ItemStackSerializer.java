@@ -1,4 +1,4 @@
-package me.shadowsense.aktier.userinterface.config;
+package me.shadowsense.aktier.userinterface.serdes.config;
 
 import com.google.common.collect.Multimap;
 import eu.okaeri.configs.schema.GenericsDeclaration;

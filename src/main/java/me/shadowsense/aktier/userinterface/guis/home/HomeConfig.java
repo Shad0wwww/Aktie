@@ -1,2 +1,45 @@
-package me.shadowsense.aktier.userinterface.guis.home;public class HomeConfig {
+package me.shadowsense.aktier.userinterface.guis.home;
+
+import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
+import eu.okaeri.platform.core.annotation.Configuration;
+import lombok.Getter;
+import me.abdiskiosk.guis.item.ItemBuilder;
+import me.shadowsense.aktier.userinterface.serdes.ConfigCompliance;
+import me.shadowsense.aktier.userinterface.serdes.GUISerdesPack;
+import me.shadowsense.aktier.userinterface.serdes.item.ConfigItem;
+
+import java.util.Collections;
+import java.util.List;
+@Getter
+@Configuration(path = "guis/home.yml", provider = YamlSnakeYamlConfigurer.class, serdes = GUISerdesPack.class)
+public class HomeConfig extends OkaeriConfig implements ConfigCompliance {
+
+
+    private static transient HomeConfig instance;
+
+    public HomeConfig() {
+        instance = this;
+    }
+
+    @Override
+    public String getTitle() {
+        return "§8§l[ §b§lSTOCK §7- §f§lHOME §8§l]";
+    }
+
+    @Override
+    public Integer getSlotSize() {
+        return 45;
+    }
+
+    public ConfigItem item = new ConfigItem(
+            Collections.singletonList(20), ItemBuilder.skull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM0ZTQ0MWVhYzg4NGRlMzM0N2E4Nzc1YTA3YTY2YmJjNGM4MmEyNGVkMmQwY2ZlYjFhY2FmNmNlOTlkNTNiNiJ9fX0=")
+            .setLore("§fKlik her for at se alle aktier")
+            .setName("§aAktier")
+            .build());
+
+    @Override
+    public List<ConfigItem> getItems() {
+        return Collections.singletonList(item);
+    }
 }

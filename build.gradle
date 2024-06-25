@@ -1,9 +1,16 @@
 plugins {
     id 'java'
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("maven-publish")
 }
 
 group = 'me.shadowsense'
 version = '1.0.0'
+
+compileJava {
+    options.compilerArgs << '-parameters'
+    options.encoding = 'utf-8'
+}
 
 repositories {
     mavenCentral()
@@ -15,9 +22,29 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        url = "https://jitpack.io"
+        credentials { username "jp_nun7b9fr2qsndj00tbbr8949t2"}
+    }
+    maven { url { uri("https://storehouse.okaeri.eu/repository/maven-releases/") } }
 }
 
 dependencies {
+    implementation('org.yaml:snakeyaml:2.2') {
+        version {
+            strictly '2.2'
+        }
+    }
+
+    implementation 'eu.okaeri:okaeri-commands-bukkit:0.9.5'
+    implementation 'eu.okaeri:okaeri-platform-bukkit:0.4.19'
+    implementation 'eu.okaeri:okaeri-configs-yaml-snakeyaml:5.0.1'
+    implementation 'com.github.AbdisKiosk:gui-lib:e1f3735307'
+    implementation'com.j256.ormlite:ormlite-jdbc:6.1'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+    compileOnly 'org.projectlombok:lombok:1.18.20'
     compileOnly "org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT"
 }
 
@@ -47,3 +74,18 @@ processResources {
         expand props
     }
 }
+
+shadowJar {
+
+    relocate("eu.okaeri.commands", "me.shadowsense.aktier.libs.cmd")
+    relocate("org.yaml.snakeyaml", "me.shadowsense.aktier.libs.yaml")
+    relocate("eu.okaeri", "me.shadowsense.aktier.libs.okaeri")
+
+    delete("C:\\Users\\Shado\\Desktop\\prison\\plugins\\Aktier")
+    destinationDirectory = file("C:\\Users\\Shado\\Desktop\\prison\\plugins")
+}
+
+build {
+    dependsOn 'shadowJar'
+}
+

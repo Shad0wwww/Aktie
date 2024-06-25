@@ -1,4 +1,4 @@
-package me.shadowsense.aktier.userinterface.config.item;
+package me.shadowsense.aktier.userinterface.serdes.item;
 
 import eu.okaeri.configs.OkaeriConfig;
 import lombok.Getter;
