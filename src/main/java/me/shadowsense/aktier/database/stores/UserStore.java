@@ -1,8 +1,8 @@
-package me.shadowsense.aktier.database;
+package me.shadowsense.aktier.database.stores;
 
 import com.j256.ormlite.dao.Dao;
-import me.shadowsense.aktier.invest.Stock;
-import me.shadowsense.aktier.invest.StockManager;
+import me.shadowsense.aktier.database.BaseStore;
+import me.shadowsense.aktier.database.StoreManager;
 import me.shadowsense.aktier.invest.StockUser;
 import org.bukkit.OfflinePlayer;
 

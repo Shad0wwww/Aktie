@@ -18,15 +18,12 @@ public class Home {
         new GUI(player).open(player);
     }
 
-
     public class GUI extends AktieGUI<HomeConfig>{
 
         public GUI(Player player) {
             super(PaneColor.CYAN, PaneColor.WHITE, new HomeConfig());
             Button.setClose(this, 36);
             setItems();
-            setItem(getConfig().getItem().getSlots().get(0), getConfig().getItem().getItem(), event -> stockList.open(player));
-
 
         }
     }

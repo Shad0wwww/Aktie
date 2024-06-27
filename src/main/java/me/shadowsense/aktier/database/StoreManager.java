@@ -9,6 +9,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import eu.okaeri.platform.core.annotation.Component;
 import lombok.Getter;
+import me.shadowsense.aktier.database.stores.UserStore;
 import me.shadowsense.aktier.invest.StockUser;
 
 import javax.annotation.PostConstruct;
