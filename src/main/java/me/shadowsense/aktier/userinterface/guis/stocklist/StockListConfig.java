@@ -30,14 +30,16 @@ public class StockListConfig extends OkaeriConfig implements ConfigCompliance {
 
     @Comment("")
     public ConfigItem stockItem = new ConfigItem(
-            Collections.emptyList(), new ItemBuilder(Material.PAPER)
-            .setName("§a{stock.name}")
+            Collections.emptyList(), ItemBuilder.skull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2ZDYxZjQ1M2MwMTU5ZWU3Y2Q4MWE0YzNlMDUzZTlkYTdkYzE0ODYzMTg4OTBhZDRhZDlhY2Y2MTE5NmI4NSJ9fX0=")
+            .setName("&a{stock.name}")
             .setLore(
                     "",
                     "&fKlik her for at se alle aktier",
-                    "&fVærdi: {stock.price}",
+                    "",
+                    "&fVærdi: {stock.price} kr",
                     "&fRist: {stock.risk}",
-                    "&f{stock.description}"
+                    "&f{stock.description}",
+                    ""
             )
             .build());
 

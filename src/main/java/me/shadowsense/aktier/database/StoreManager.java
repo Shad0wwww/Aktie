@@ -9,7 +9,9 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import eu.okaeri.platform.core.annotation.Component;
 import lombok.Getter;
+import me.shadowsense.aktier.database.stores.StakeStore;
 import me.shadowsense.aktier.database.stores.UserStore;
+import me.shadowsense.aktier.invest.Stake;
 import me.shadowsense.aktier.invest.StockUser;
 
 import javax.annotation.PostConstruct;
@@ -19,11 +21,14 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+
 @Component
 public class StoreManager {
 
     @Getter
     private UserStore userStore;
+    @Getter
+    private StakeStore stakeStore;
 
     private ConnectionSource connectionSource;
 
@@ -40,10 +45,13 @@ public class StoreManager {
             connectionSource = new JdbcConnectionSource("jdbc:sqlite:" + "plugins/Aktier/stock.db");
             Set<String> tableNames = getCreatedTables();
 
-            if (!tableNames.contains(StockUser.STOCK_USER)) {
+            if (!tableNames.contains(StockUser.TABLE_NAME)) {
                 TableUtils.clearTable(connectionSource, StockUser.class);
             }
 
+            if (!tableNames.contains(Stake.TABLE_NAME)) {
+                TableUtils.clearTable(connectionSource, Stake.class);
+            }
 
         } catch(Exception ex) {
             logger.severe("========================================");
@@ -60,6 +68,7 @@ public class StoreManager {
         }
 
         this.userStore = new UserStore(DaoManager.createDao(connectionSource, StockUser.class), this, logger);
+        this.stakeStore = new StakeStore(DaoManager.createDao(connectionSource, Stake.class), this, logger);
     }
 
     private Set<String> getCreatedTables() throws SQLException {
