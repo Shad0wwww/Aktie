@@ -14,6 +14,7 @@ import me.shadowsense.aktier.config.StockConfig;
 import me.shadowsense.aktier.invest.StockManager;
 import me.shadowsense.aktier.userinterface.guis.home.Home;
 import me.shadowsense.aktier.userinterface.guis.home.HomeConfig;
+import me.shadowsense.aktier.userinterface.guis.stocklist.StockListConfig;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,6 +29,7 @@ public class Aktie implements CommandService {
     private @Inject Config config;
     private @Inject StockManager stockManager;
     private @Inject HomeConfig homeConfig;
+    private @Inject StockListConfig stockListConfig;
 
 
     @Executor
@@ -40,14 +42,13 @@ public class Aktie implements CommandService {
     @Executor @Sync
     public void reload(CommandSender sender) {
         Player player = (Player) sender;
-
         long ms = System.currentTimeMillis();
-
         i18n.get(langConfig.getReloadStart()).sendTo(player);
         i18n.load();
         config.load();
         stockConfig.load();
         homeConfig.load();
+        stockListConfig.load();
         stockManager.load();
         i18n.get(langConfig.getReloadEnd())
             .with("ms", System.currentTimeMillis() - ms)

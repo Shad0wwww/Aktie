@@ -2,6 +2,7 @@ package me.shadowsense.aktier.userinterface.serdes.item;
 
 import eu.okaeri.configs.OkaeriConfig;
 import lombok.Getter;
+import me.abdiskiosk.guis.item.GUIItem;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
@@ -14,5 +15,9 @@ public class ConfigItem extends OkaeriConfig {
     public ConfigItem(List<Integer> slots, ItemStack item) {
         this.slots = slots;
         this.item = item;
+    }
+
+    public GUIItem toGuiItem() {
+        return new GUIItem(slots, item);
     }
 }

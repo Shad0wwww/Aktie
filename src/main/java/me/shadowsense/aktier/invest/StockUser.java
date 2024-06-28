@@ -5,8 +5,6 @@ import com.j256.ormlite.table.DatabaseTable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
-import java.util.Map;
 import java.util.UUID;
 
 @Data @EqualsAndHashCode(callSuper = false)
@@ -18,12 +16,10 @@ public class StockUser {
     @DatabaseField(canBeNull = false, uniqueIndex = true, columnName = "mc_uuid")
     private UUID uuid;
 
-    @DatabaseField(canBeNull = false, columnName = "stocks")
-    private Map<Stock, BigDecimal> stocks;
 
-    public StockUser(UUID uuid, Map<Stock, BigDecimal> stocks) {
+    public StockUser(UUID uuid) {
         this.uuid = uuid;
-        this.stocks = stocks;
+
     }
 
     public StockUser() {

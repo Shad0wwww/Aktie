@@ -38,7 +38,7 @@ public class StockList {
         private void setStocksList() {
             int i = 9;
             for (Stock stock : stockManager.getStocks()) {
-                setItem(i, getConfig().getStockItem().getItem(), Placeholders.of("stock", stock));
+                setItem(i, getConfig().getStockItem().getItem(), stock);
                 i++;
             }
         }

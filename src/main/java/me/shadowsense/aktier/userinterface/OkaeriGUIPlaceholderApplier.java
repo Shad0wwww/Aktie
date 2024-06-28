@@ -8,8 +8,7 @@ import eu.okaeri.placeholders.message.CompiledMessage;
 import me.abdiskiosk.guis.placeholder.PlaceholderApplier;
 import me.abdiskiosk.guis.state.NamedState;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OkaeriGUIPlaceholderApplier implements PlaceholderApplier {
@@ -27,7 +26,19 @@ public class OkaeriGUIPlaceholderApplier implements PlaceholderApplier {
         Map<String, Object> placeholders = collection.stream()
                 .collect(Collectors.toMap(NamedState::getName, NamedState::get));
 
-        return context.with(placeholders).apply();
+        return context.with(placeholders).apply().replaceAll("&", "§");
     }
+
+    @Override
+    public List<String> replace(List<String> text, Collection<? extends NamedState<?>> states) {
+        List<String> replaced = new ArrayList<>();
+        for(String str : text) {
+            String replacedString = replace(str, states);
+            String[] lines = replacedString.split("\\n");
+            replaced.addAll(Arrays.asList(lines));
+        }
+        return replaced;
+    }
+
 
 }

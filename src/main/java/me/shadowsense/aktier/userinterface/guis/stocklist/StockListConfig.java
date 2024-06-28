@@ -34,10 +34,10 @@ public class StockListConfig extends OkaeriConfig implements ConfigCompliance {
             .setName("§a{stock.name}")
             .setLore(
                     "",
-                    "§fKlik her for at se alle aktier",
-                    "{stock.price}",
-                    "{stock.risk}",
-                    "{stock.description}"
+                    "&fKlik her for at se alle aktier",
+                    "&fVærdi: {stock.price}",
+                    "&fRist: {stock.risk}",
+                    "&f{stock.description}"
             )
             .build());
 

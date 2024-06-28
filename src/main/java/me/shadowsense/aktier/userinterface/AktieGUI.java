@@ -13,14 +13,14 @@ import me.abdiskiosk.guis.placeholder.SimplePlaceholderApplier;
 import me.abdiskiosk.guis.reflection.StateFinder;
 import me.abdiskiosk.guis.state.NamedState;
 import me.abdiskiosk.guis.state.StaticNamedState;
+import me.abdiskiosk.guis.util.Placeholders;
+import me.shadowsense.aktier.invest.Stock;
 import me.shadowsense.aktier.userinterface.serdes.ConfigCompliance;
 import me.shadowsense.aktier.userinterface.util.Decoration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.function.Consumer;
 
 public class AktieGUI<C extends ConfigCompliance> extends AutoUpdatingGUI {
@@ -30,6 +30,7 @@ public class AktieGUI<C extends ConfigCompliance> extends AutoUpdatingGUI {
 
     @Getter
     protected final C config;
+
     public AktieGUI(PaneColor color1, PaneColor color2, C config) {
         super(config.getTitle(), config.getSlotSize());
         this.color1 = color1;
@@ -56,10 +57,9 @@ public class AktieGUI<C extends ConfigCompliance> extends AutoUpdatingGUI {
         set(guiItem).onClick(action);
     }
 
-    protected void setItem(int slot, ItemStack item, Collection<NamedState<?>> placeholder) {
+    protected void setItem(int slot, ItemStack item, Stock stock) {
         GUIItem guiItem = new GUIItem(slot, item);
-
-        set(guiItem);
+        set(guiItem, Placeholders.of("stock", stock));
     }
 
     protected void setDecoration() {
