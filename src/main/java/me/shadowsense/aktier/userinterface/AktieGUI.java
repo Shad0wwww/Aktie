@@ -31,10 +31,10 @@ public class AktieGUI<C extends ConfigCompliance> extends AutoUpdatingGUI {
     @Getter
     protected final C config;
 
-    public AktieGUI(PaneColor color1, PaneColor color2, C config) {
+    public AktieGUI(C config) {
         super(config.getTitle(), config.getSlotSize());
-        this.color1 = color1;
-        this.color2 = color2;
+        this.color1 = config.getTopPaneColor();
+        this.color2 = config.getBottomPaneColor();
         this.config = config;
 
         setDecoration();

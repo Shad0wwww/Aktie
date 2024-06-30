@@ -15,13 +15,24 @@ public class Stake {
 
     @DatabaseField(generatedId = true)
     private int id;
+
     @DatabaseField(canBeNull = false, columnName = "stock_name")
     private String stockName;
-    @DatabaseField(canBeNull = false)
+
+    @DatabaseField(canBeNull = false, columnName = "amount")
     private int amount;
-    @DatabaseField(canBeNull = false)
-    private BigDecimal price;
+
+    @DatabaseField(canBeNull = false, columnName = "boughtPrice")
+    private BigDecimal boughtPrice;
 
     public Stake() {
     }
+
+    public Stake(String stockName, int amount, BigDecimal boughtPrice) {
+        this.stockName = stockName;
+        this.amount = amount;
+        this.boughtPrice = boughtPrice;
+    }
+
+
 }

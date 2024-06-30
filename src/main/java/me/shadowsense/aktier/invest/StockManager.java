@@ -46,19 +46,7 @@ public class StockManager {
 
     private BigDecimal calculateNewPrice(BigDecimal price, Risk risk) {
         Random random = new Random();
-        int percentageChange = 0;
-
-        switch (risk) {
-            case LOW:
-                percentageChange = random.nextInt(config.getLowStockProcent());
-                break;
-            case MEDIUM:
-                percentageChange = random.nextInt(config.getMediumStockProcent());
-                break;
-            case HIGH:
-                percentageChange = random.nextInt(config.getHighStockProcent());
-                break;
-        }
+        int percentageChange = this.getPercentageChange(risk);
 
         BigDecimal change = price.multiply(new BigDecimal(percentageChange))
                 .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
@@ -70,6 +58,19 @@ public class StockManager {
         }
 
         return price;
+    }
+
+    private Integer getPercentageChange(Risk risk) {
+        Random random = new Random();
+        switch (risk) {
+            case LOW:
+                return random.nextInt(config.getLowStockProcent());
+            case MEDIUM:
+                return random.nextInt(config.getMediumStockProcent());
+            case HIGH:
+                return random.nextInt(config.getHighStockProcent());
+        }
+        return 0;
     }
 
     public synchronized void updateStockPrices() {

@@ -22,8 +22,9 @@ public class Home {
     public class GUI extends AktieGUI<HomeConfig>{
 
         public GUI(Player player) {
-            super(PaneColor.CYAN, PaneColor.WHITE, new HomeConfig());
+            super(new HomeConfig());
             Button.setClose(this, 36);
+            System.out.println("Player: " + player.getName());
 
             set(getConfig().item.toGuiItem()).onClick(event -> stockList.open(player));
 

@@ -6,6 +6,7 @@ import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import eu.okaeri.platform.core.annotation.Configuration;
 import lombok.Getter;
 import me.abdiskiosk.guis.item.ItemBuilder;
+import me.abdiskiosk.guis.item.PaneColor;
 import me.shadowsense.aktier.userinterface.serdes.ConfigCompliance;
 import me.shadowsense.aktier.userinterface.serdes.GUISerdesPack;
 import me.shadowsense.aktier.userinterface.serdes.item.ConfigItem;
@@ -22,12 +23,20 @@ public class HomeConfig extends OkaeriConfig implements ConfigCompliance {
     @Comment("The size of the GUI")
     private Integer SlotSize = 45;
 
+    @Comment("The color of the top pane")
+    private PaneColor TopPaneColor = PaneColor.CYAN;
+    @Comment("The color of the bottom pane")
+    private PaneColor BottomPaneColor = PaneColor.WHITE;
+
+
     @Comment("The item that opens the stock list")
     public ConfigItem item = new ConfigItem(
             Collections.singletonList(20), ItemBuilder.skull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGM0ZTQ0MWVhYzg4NGRlMzM0N2E4Nzc1YTA3YTY2YmJjNGM4MmEyNGVkMmQwY2ZlYjFhY2FmNmNlOTlkNTNiNiJ9fX0=")
             .setLore("§fKlik her for at se alle aktier")
             .setName("§aAktier")
             .build());
+
+
 
     @Override
     public List<ConfigItem> getItems() {

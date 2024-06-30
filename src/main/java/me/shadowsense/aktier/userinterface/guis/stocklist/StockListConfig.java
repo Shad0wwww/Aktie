@@ -8,6 +8,7 @@ import eu.okaeri.placeholders.context.Placeholder;
 import eu.okaeri.platform.core.annotation.Configuration;
 import lombok.Getter;
 import me.abdiskiosk.guis.item.ItemBuilder;
+import me.abdiskiosk.guis.item.PaneColor;
 import me.abdiskiosk.guis.util.Placeholders;
 import me.shadowsense.aktier.invest.StockManager;
 import me.shadowsense.aktier.userinterface.serdes.ConfigCompliance;
@@ -28,6 +29,11 @@ public class StockListConfig extends OkaeriConfig implements ConfigCompliance {
     @Comment("The size of the GUI")
     private Integer SlotSize = 45;
 
+    @Comment("The color of the top pane")
+    private PaneColor TopPaneColor = PaneColor.CYAN;
+    @Comment("The color of the bottom pane")
+    private PaneColor BottomPaneColor = PaneColor.WHITE;
+
     @Comment("")
     public ConfigItem stockItem = new ConfigItem(
             Collections.emptyList(), ItemBuilder.skull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWE2ZDYxZjQ1M2MwMTU5ZWU3Y2Q4MWE0YzNlMDUzZTlkYTdkYzE0ODYzMTg4OTBhZDRhZDlhY2Y2MTE5NmI4NSJ9fX0=")
@@ -42,6 +48,8 @@ public class StockListConfig extends OkaeriConfig implements ConfigCompliance {
                     ""
             )
             .build());
+
+
 
 
     @Override
