@@ -1,20 +1,12 @@
 package me.shadowsense.aktier.userinterface;
 
-import eu.okaeri.injector.annotation.Inject;
-import eu.okaeri.placeholders.context.Placeholder;
 import lombok.Getter;
 import me.abdiskiosk.guis.gui.AutoUpdatingGUI;
 import me.abdiskiosk.guis.item.GUIItem;
-import me.abdiskiosk.guis.item.ItemBuilder;
 import me.abdiskiosk.guis.item.PaneColor;
-import me.abdiskiosk.guis.placeholder.PlaceholderApplier;
-import me.abdiskiosk.guis.placeholder.PlaceholderUtils;
-import me.abdiskiosk.guis.placeholder.SimplePlaceholderApplier;
 import me.abdiskiosk.guis.reflection.StateFinder;
-import me.abdiskiosk.guis.state.NamedState;
-import me.abdiskiosk.guis.state.StaticNamedState;
 import me.abdiskiosk.guis.util.Placeholders;
-import me.shadowsense.aktier.invest.Stock;
+import me.shadowsense.aktier.invest.objects.Stock;
 import me.shadowsense.aktier.userinterface.serdes.ConfigCompliance;
 import me.shadowsense.aktier.userinterface.util.Decoration;
 import org.bukkit.entity.Player;

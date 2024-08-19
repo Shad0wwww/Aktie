@@ -3,7 +3,7 @@ package me.shadowsense.aktier.database.stores;
 import com.j256.ormlite.dao.Dao;
 import me.shadowsense.aktier.database.BaseStore;
 import me.shadowsense.aktier.database.StoreManager;
-import me.shadowsense.aktier.invest.Stake;
+import me.shadowsense.aktier.invest.objects.Stake;
 
 import java.util.logging.Logger;
 

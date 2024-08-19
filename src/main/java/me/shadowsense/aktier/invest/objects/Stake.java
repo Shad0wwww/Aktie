@@ -1,4 +1,4 @@
-package me.shadowsense.aktier.invest;
+package me.shadowsense.aktier.invest.objects;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -35,4 +35,7 @@ public class Stake {
     }
 
 
+    public void add(int amount) {
+        this.amount += amount;
+    }
 }

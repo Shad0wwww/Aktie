@@ -1,13 +1,10 @@
 package me.shadowsense.aktier.task;
 
-import eu.okaeri.commons.bukkit.time.MinecraftTimeEquivalent;
 import eu.okaeri.injector.annotation.Inject;
-import eu.okaeri.platform.bukkit.annotation.Scheduled;
-import me.shadowsense.aktier.config.Config;
 import me.shadowsense.aktier.invest.StockManager;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitScheduler;
 
 public class StockUpdater extends BukkitRunnable {
 
@@ -23,6 +20,7 @@ public class StockUpdater extends BukkitRunnable {
         }
 
         stockManager.updateStockPrices();
+        Bukkit.broadcastMessage("Stock prices updated!");
 
 
     }

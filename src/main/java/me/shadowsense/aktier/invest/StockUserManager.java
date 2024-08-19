@@ -1,6 +1,8 @@
 package me.shadowsense.aktier.invest;
 
 import eu.okaeri.platform.core.annotation.Component;
+import me.shadowsense.aktier.invest.objects.Stock;
+import me.shadowsense.aktier.invest.objects.StockUser;
 
 import java.util.UUID;
 

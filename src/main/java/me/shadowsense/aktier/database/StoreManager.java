@@ -7,52 +7,50 @@ import com.j256.ormlite.logger.LogBackendType;
 import com.j256.ormlite.logger.LoggerFactory;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import eu.okaeri.platform.core.annotation.Component;
+import eu.okaeri.injector.annotation.Inject;
+import eu.okaeri.injector.annotation.PostConstruct;
+import eu.okaeri.platform.core.annotation.Bean;
+import eu.okaeri.platform.core.annotation.Service;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import me.shadowsense.aktier.Aktier;
 import me.shadowsense.aktier.database.stores.StakeStore;
+import me.shadowsense.aktier.database.stores.StockStore;
 import me.shadowsense.aktier.database.stores.UserStore;
-import me.shadowsense.aktier.invest.Stake;
-import me.shadowsense.aktier.invest.StockUser;
+import me.shadowsense.aktier.invest.objects.Stake;
+import me.shadowsense.aktier.invest.objects.Stock;
+import me.shadowsense.aktier.invest.objects.StockUser;
 
-import javax.annotation.PostConstruct;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
+import java.io.File;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
-@Component
+@Service
+@NoArgsConstructor
 public class StoreManager {
 
     @Getter
-    private UserStore userStore;
-    @Getter
-    private StakeStore stakeStore;
+    private @Inject Aktier plugin;
 
+    private UserStore userStore;
+    private StakeStore stakeStore;
+    private StockStore stockStore;
+
+    @Getter
     private ConnectionSource connectionSource;
 
-    public StoreManager(ConnectionSource source) throws SQLException {
-        connectionSource = source;
-    }
 
     @PostConstruct
-    public void init(Logger logger) throws Exception {
+    public void init(Logger logger) throws SQLException  {
         com.j256.ormlite.logger.Logger.setGlobalLogLevel(Level.ERROR);
         LoggerFactory.setLogBackendType(LogBackendType.JAVA_UTIL);
 
         try {
-            connectionSource = new JdbcConnectionSource("jdbc:sqlite:" + "plugins/Aktier/stock.db");
-            Set<String> tableNames = getCreatedTables();
+            connectionSource = new JdbcConnectionSource(getConnectionUrl());
 
-            if (!tableNames.contains(StockUser.TABLE_NAME)) {
-                TableUtils.clearTable(connectionSource, StockUser.class);
-            }
-
-            if (!tableNames.contains(Stake.TABLE_NAME)) {
-                TableUtils.clearTable(connectionSource, Stake.class);
-            }
-
+            TableUtils.createTableIfNotExists(connectionSource, StockUser.class);
+            TableUtils.createTableIfNotExists(connectionSource, Stake.class);
+            TableUtils.createTableIfNotExists(connectionSource, Stock.class);
         } catch(Exception ex) {
             logger.severe("========================================");
             logger.severe("=                                      =");
@@ -69,24 +67,13 @@ public class StoreManager {
 
         this.userStore = new UserStore(DaoManager.createDao(connectionSource, StockUser.class), this, logger);
         this.stakeStore = new StakeStore(DaoManager.createDao(connectionSource, Stake.class), this, logger);
+        this.stockStore = new StockStore(DaoManager.createDao(connectionSource, Stock.class), this, logger);
     }
 
-    private Set<String> getCreatedTables() throws SQLException {
-        DatabaseMetaData metaData = connectionSource.getReadWriteConnection("").getUnderlyingConnection().getMetaData();
-        ResultSet tables = metaData.getTables(null, null, "%", null);
-
-        // Create a Set to hold table names
-        Set<String> tableNames = new HashSet<>();
-
-        while (tables.next()) {
-            tableNames.add(tables.getString(3).toLowerCase());
-        }
-
-        return tableNames;
-    }
-
-    private static boolean isSqlite(String jdbc) {
-        return jdbc.startsWith("jdbc:sqlite:");
+    public String getConnectionUrl() {
+        String databaseType = "sqlite";
+        String databasePath = plugin.getDataFolder() + File.separator + plugin.getDescription().getName();
+        return "jdbc:" + databaseType + ":" + databasePath + ".db";
     }
 
     public void disconnect() throws Exception {
@@ -94,4 +81,16 @@ public class StoreManager {
         connectionSource.close();
     }
 
+    @Bean
+    public UserStore getUserStore() {
+        return userStore;
+    }
+    @Bean
+    public StakeStore getStakeStore() {
+        return stakeStore;
+    }
+    @Bean
+    public StockStore getStockStore() {
+        return stockStore;
+    }
 }
