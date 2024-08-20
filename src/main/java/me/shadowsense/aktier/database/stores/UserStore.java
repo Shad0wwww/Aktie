@@ -3,6 +3,8 @@ package me.shadowsense.aktier.database.stores;
 import com.j256.ormlite.dao.Dao;
 import me.shadowsense.aktier.database.BaseStore;
 import me.shadowsense.aktier.database.StoreManager;
+import me.shadowsense.aktier.invest.objects.Stake;
+import me.shadowsense.aktier.invest.objects.Stock;
 import me.shadowsense.aktier.invest.objects.StockUser;
 import org.bukkit.OfflinePlayer;
 
@@ -18,16 +20,17 @@ public class UserStore extends BaseStore<Integer, StockUser> {
     }
 
     public void create(UUID uuid) {
-        StockUser user = new StockUser(uuid, null);
+        StockUser user = new StockUser(uuid);
         persist(user);
     }
 
-    public void addStake(OfflinePlayer player, int amount) {
-        Optional<StockUser> user = get(player.getUniqueId());
-        if (user.isPresent()) {
-            user.get().getStake().add(amount);
-            update(user.get());
-        }
+    public void create(OfflinePlayer player) {
+        create(player.getUniqueId());
+    }
+
+    public void addStake(StockUser user, Stake stake) {
+        user.addStake(stake);
+        update(user);
     }
 
     public Optional<StockUser> get(UUID uuid) {

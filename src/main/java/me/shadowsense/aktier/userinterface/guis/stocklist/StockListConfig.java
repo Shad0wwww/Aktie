@@ -37,6 +37,8 @@ public class StockListConfig extends OkaeriConfig implements ConfigCompliance {
                     "",
                     "&fVærdi: {stock.price} kr",
                     "&fRist: {stock.risk}",
+                    "&fStartpris: {stock.start_price} kr",
+                    "&fprocent stigning: {stock.procent_change}%",
                     ""
             )
             .build());

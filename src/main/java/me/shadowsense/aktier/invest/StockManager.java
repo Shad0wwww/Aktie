@@ -18,18 +18,12 @@ public class StockManager {
 
     private BigDecimal calculateNewPrice(BigDecimal price, Risk risk) {
         Random random = new Random();
-        int percentageChange = this.getPercentageChange(risk);
+        int percentageChange = getPercentageChange(risk);
 
-        BigDecimal change = price.multiply(new BigDecimal(percentageChange))
-                .divide(new BigDecimal(100), 2, RoundingMode.HALF_UP);
+        BigDecimal change = price.multiply(BigDecimal.valueOf(percentageChange))
+                .divide(BigDecimal.valueOf(100), 2, RoundingMode.HALF_UP);
 
-        if (random.nextBoolean()) {
-            price = price.add(change);
-        } else {
-            price = price.subtract(change);
-        }
-
-        return price;
+        return random.nextBoolean() ? price.add(change) : price.subtract(change);
     }
 
     private Integer getPercentageChange(Risk risk) {

@@ -35,7 +35,4 @@ public class Stake {
     }
 
 
-    public void add(int amount) {
-        this.amount += amount;
-    }
 }

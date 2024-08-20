@@ -18,4 +18,5 @@ public class StakeStore extends BaseStore<Integer, Stake> {
     }
 
 
+
 }

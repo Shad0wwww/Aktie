@@ -20,18 +20,24 @@ public class Stock {
     private String name;
     @DatabaseField(canBeNull = false, columnName = "price")
     private BigDecimal price;
+    @DatabaseField(canBeNull = false, columnName = "start_price")
+    private BigDecimal startPrice;
     @DatabaseField(canBeNull = false, columnName = "risk")
     private Risk risk;
 
-    public Stock(String name, BigDecimal price, Risk risk, int id) {
+    public Stock(String name, BigDecimal price, Risk risk, int id, BigDecimal startPrice) {
         this.name = name;
         this.price = price;
         this.risk = risk;
         this.id = id;
+        this.startPrice = startPrice;
     }
 
     public Stock() {
     }
 
+    public Integer procentChange() {
+        return (int) (((price.doubleValue() - startPrice.doubleValue()) / startPrice.doubleValue()) * 100);
+    }
 
 }

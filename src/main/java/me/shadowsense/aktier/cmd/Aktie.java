@@ -66,9 +66,8 @@ public class Aktie implements CommandService {
     }
 
     @Async
-    @Executor
+    @Executor(description = "Add a stock to the database", usage = "<name> <risk> <price>")
     public void addStock(@Context Player player, @Arg String name, @Arg Risk risk, @Arg String price) {
-
         if (storeManager.getStockStore().exists(name.toLowerCase())) {
             i18n.get(langConfig.getStockAllreadyExists())
                 .with("stock_name", name.toLowerCase())
@@ -78,7 +77,7 @@ public class Aktie implements CommandService {
 
         try {
             BigDecimal priceValue = new BigDecimal(price);
-            Stock stock = new Stock(name, priceValue, risk, storeManager.getStockStore().getAll().size()+1);
+            Stock stock = new Stock(name, priceValue, risk, storeManager.getStockStore().getAll().size()+1, priceValue);
             storeManager.getStockStore().update(stock);
 
             i18n.get(langConfig.getAddedStock())
